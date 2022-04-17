@@ -1,0 +1,9 @@
+<p-menubar [model]="items" *ngIf="isAuthenticated()">
+	<ng-template pTemplate="end">
+		<img src="../assets/SeniaLogo.png" alt="seniaLogo" height="40px" class="d-none d-sm-inline">
+		<button pButton label="Logout" icon="pi pi-power-off" class="mx-4" (click)="logout()" routerLink="/"></button>
+	</ng-template>
+</p-menubar>
+
+
+<router-outlet></router-outlet>

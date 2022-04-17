@@ -1,0 +1,27 @@
+<p-toast></p-toast>
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<p-card header="Edit config">
+				<form [formGroup]="configForm">
+					<span class="p-float-label">
+						<input id="float-input" type="text" pInputText formControlName="name">
+						<label for="float-input">Name</label>
+					</span>
+					<h5 class="my-2">Commands:</h5>
+					<p class="text-danger">NOTE: Finish each command with ';' and a new line.</p>
+					<textarea pInputTextarea class="w-50" style="height: 400px" formControlName="commands"></textarea>
+				</form>
+
+				<div class="row">
+					<div class="col">
+						<p-button label="Submit" (click)="editConfig()"></p-button>
+					</div>
+				</div>
+
+				<a href="/configs/overview">Back</a>
+			</p-card>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,46 @@
+<p-toast></p-toast>
+
+<div class="card">
+	<p-toolbar styleClass="mb-4">
+		<ng-template pTemplate="left">
+			<button pButton pRipple label="New User" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/users/create"></button>
+		</ng-template>
+	</p-toolbar>
+
+	<p-table #dt [value]="users" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+			 [(selection)]="selectedUsers" [rowHover]="true" dataKey="id"
+			 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+		<ng-template pTemplate="caption">
+			<h5 class="m-0">Manage Users</h5>
+		</ng-template>
+		<ng-template pTemplate="header">
+			<tr>
+				<th pSortableColumn="email">E-mail <p-sortIcon field="email"></p-sortIcon>
+				</th>
+				<th pSortableColumn="userName">Username <p-sortIcon field="userName"></p-sortIcon>
+				</th>
+				<th pSortableColumn="phoneNumber">Phone number <p-sortIcon field="phoneNumber"></p-sortIcon>
+				</th>
+				<th></th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-user>
+			<tr>
+				<td>{{user.email}}</td>
+				<td>{{user.userName}}</td>
+				<td>{{user.phoneNumber || "--------"}}</td>
+				<td>
+					<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mx-2" [routerLink]="'/users/edit/' + user.id"></button>
+					<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mx-2" (click)="deleteUser(user)"></button>
+				</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="summary">
+			<div class="flex align-items-center justify-content-between">
+				In total there are {{users ? users.length : 0 }} users.
+			</div>
+		</ng-template>
+	</p-table>
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

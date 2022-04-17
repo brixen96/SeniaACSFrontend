@@ -1,0 +1,56 @@
+<p-toast></p-toast>
+
+<div class="card">
+	<p-toolbar styleClass="mb-4">
+		<ng-template pTemplate="left">
+			<button pButton pRipple label="New Device" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/devices/create"></button>
+		</ng-template>
+	</p-toolbar>
+
+	<p-table #dt [value]="devices" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+			 [rowHover]="true" dataKey="id"
+			 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+		<ng-template pTemplate="caption">
+			<h5 class="m-0">Manage Devices</h5>
+		</ng-template>
+		<ng-template pTemplate="header">
+			<tr>
+				<th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon>
+				</th>
+				<th pSortableColumn="serialNumber">Serial Number<p-sortIcon field="serialNumber"></p-sortIcon>
+				</th>
+				<th pSortableColumn="ipAddress">IP Address<p-sortIcon field="ipAddress"></p-sortIcon>
+				</th>
+				<th pSortableColumn="sshUsername">SSH Username<p-sortIcon field="sshUsername"></p-sortIcon>
+				</th>
+				<th pSortableColumn="sshPassword">SSH Password<p-sortIcon field="sshPassword"></p-sortIcon>
+				</th>
+				<th></th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-device>
+			<tr>
+				<td>{{device.name}}</td>
+				<td>{{device.serialNumber}}</td>
+				<td>{{device.ipAddress}}</td>
+				<td>{{device.sshUsername}}</td>
+				<td><button pButton class="p-button-danger" (click)="openShowSSHPasswordDialog(device)">Show</button></td>
+				<td>
+					<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mx-2" [routerLink]="'/devices/edit/' + device.id"></button>
+					<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mx-2" (click)="deleteDevice(device)"></button>
+				</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="summary">
+			<div class="flex align-items-center justify-content-between">
+				In total there are {{devices ? devices.length : 0 }} devices.
+			</div>
+		</ng-template>
+	</p-table>
+</div>
+
+<p-dialog header="SSH Password" [(visible)]="showSSHPasswordDialog">
+	<p *ngIf="chosenDevice">{{chosenDevice.sshPassword}}</p>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

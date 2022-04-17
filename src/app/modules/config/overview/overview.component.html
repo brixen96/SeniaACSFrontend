@@ -1,0 +1,73 @@
+<p-toast></p-toast>
+
+<div class="card">
+	<p-toolbar styleClass="mb-4">
+		<ng-template pTemplate="left">
+			<button pButton pRipple label="New Config" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/configs/create"></button>
+		</ng-template>
+	</p-toolbar>
+
+	<p-table #dt [value]="configs" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+			 [(selection)]="selectedConfigs" [rowHover]="true" dataKey="id"
+			 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+		<ng-template pTemplate="caption">
+			<h5 class="m-0">Manage Configs</h5>
+		</ng-template>
+		<ng-template pTemplate="header">
+			<tr>
+				<th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+				</th>
+				<th pSortableColumn="command">Command<p-sortIcon field="command"></p-sortIcon>
+				</th>
+				<th></th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-config>
+			<tr>
+				<td>{{config.name}}</td>
+				<td><button pButton (click)="openConfigCommandsDialog(config)">View</button></td>
+				<td>
+					<button pButton pRipple icon="pi pi-play" class="p-button-rounded p-button-info mx-2" (click)="openRunConfigDialog(config)"></button>
+					<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mx-2" [routerLink]="'/configs/edit/' + config.id"></button>
+					<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mx-2" (click)="deleteConfig(config)"></button>
+				</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="summary">
+			<div class="flex align-items-center justify-content-between">
+				In total there are {{configs ? configs.length : 0 }} configs.
+			</div>
+		</ng-template>
+	</p-table>
+</div>
+
+<p-dialog header="Config commands:" [(visible)]="commandsDialog">
+	<p *ngIf="chosenConfig">{{chosenConfig.command}}</p>
+</p-dialog>
+
+<p-dialog header="Config output:" [(visible)]="configOutputDialog">
+	<textarea pInputTextarea *ngIf="configExecuteOutput" disabled style="width: 50vw; height: 70vh;">{{configExecuteOutput}}</textarea>
+</p-dialog>
+
+<p-dialog header="Run config" [(visible)]="runConfigDialog">
+	<p-dropdown [options]="devices" [(ngModel)]="selectedDevice" optionLabel="name" placeholder="Device" (onChange)="selectDevice(this.selectedDevice)"></p-dropdown>
+	<form [formGroup]="configToExecuteForm">
+		<span class="p-float-label my-4">
+			<input id="float-input" type="text" pInputText formControlName="ipAddress">
+			<label for="float-input">IP Address</label>
+		</span>
+		<span class="p-float-label my-4">
+			<input id="float-input" type="text" pInputText formControlName="username">
+			<label for="float-input">Username</label>
+		</span>
+		<span class="p-float-label my-4">
+			<input id="float-input" type="password" pInputText formControlName="password">
+			<label for="float-input">Password</label>
+		</span>
+	</form>
+
+	<button pButton class="p-button-info" (click)="runConfig(chosenConfig)">Submit</button>
+
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

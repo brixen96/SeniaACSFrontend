@@ -1,0 +1,40 @@
+<p-toast></p-toast>
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<p-card header="Create user">
+				<form [formGroup]="userForm">
+					<span class="p-float-label my-4">
+						<input id="float-input" type="text" pInputText formControlName="Email">
+						<label for="float-input">E-mail</label>
+					</span>
+					<span class="p-float-label ">
+						<input id="float-input" type="password" pPassword formControlName="Password">
+						<label for="float-input">Password</label>
+					</span>
+					<span class="p-float-label my-4">
+						<input id="float-input" type="password" pInputText formControlName="ConfirmPassword">
+						<label for="float-input">Confirm Password</label>
+					</span>
+					<span class="p-float-label my-4">
+						<input id="float-input" type="text" pInputText formControlName="Name">
+						<label for="float-input">Name</label>
+					</span>
+					<span class="p-float-label my-4">
+						<input id="float-input" type="text" pInputText formControlName="PhoneNumber">
+						<label for="float-input">Phone Number</label>
+					</span>
+				</form>
+
+				<div class="row">
+					<div class="col">
+						<p-button label="Submit" (click)="createUser()"></p-button>
+					</div>
+				</div>
+
+				<a href="/users/overview">Back</a>
+			</p-card>
+		</div>
+	</div>
+</div>
