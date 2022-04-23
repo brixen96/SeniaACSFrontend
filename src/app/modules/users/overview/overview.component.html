@@ -17,8 +17,6 @@
 			<tr>
 				<th pSortableColumn="email">E-mail <p-sortIcon field="email"></p-sortIcon>
 				</th>
-				<th pSortableColumn="userName">Username <p-sortIcon field="userName"></p-sortIcon>
-				</th>
 				<th pSortableColumn="phoneNumber">Phone number <p-sortIcon field="phoneNumber"></p-sortIcon>
 				</th>
 				<th></th>
@@ -27,7 +25,6 @@
 		<ng-template pTemplate="body" let-user>
 			<tr>
 				<td>{{user.email}}</td>
-				<td>{{user.userName}}</td>
 				<td>{{user.phoneNumber || "--------"}}</td>
 				<td>
 					<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mx-2" [routerLink]="'/users/edit/' + user.id"></button>

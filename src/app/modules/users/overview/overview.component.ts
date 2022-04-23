@@ -12,6 +12,7 @@ import { ConfirmationService } from 'primeng/api';
 export class OverviewComponent implements OnInit, OnDestroy {
 
 	subscription$: any;
+	subscriptionDelete$: any;
 
 	users: Array<Object> = [];
 	selectedUsers: Array<Object> = []
@@ -31,6 +32,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.subscription$?.unsubscribe();
+		this.subscriptionDelete$?.unsubscribe();
 	}
 
 	deleteUser(user: any) {
@@ -39,8 +41,17 @@ export class OverviewComponent implements OnInit, OnDestroy {
 			header: 'Confirm',
 			icon: 'pi pi-exclamation-triangle',
 			accept: () => {
-				this.users = this.users.filter(val => val !== user);
-				this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000 });
+				this.subscriptionDelete$ = this.userService.deleteUser(user.id).subscribe({
+					next: (data: any) => {
+						this.users = this.users.filter(val => val !== user);
+						this.userService.deleteUser(user.id);
+						this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000 });
+					},
+					error: err => {
+						console.error(err);
+					}
+				})
+
 			}
 		});
 	}

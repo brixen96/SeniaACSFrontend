@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	apiurl: 'https://acsapi.senia.dk/'
+	apiurl: 'https://localhost:7265/'
 };

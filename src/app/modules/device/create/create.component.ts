@@ -22,7 +22,9 @@ export class CreateComponent implements OnInit, OnDestroy {
 			serialNumber: ['', Validators.required],
 			ipAddress: [''],
 			sshUsername: [''],
-			sshPassword: ['']
+			sshPassword: [''],
+			model: [''],
+			MAC: ['']
 		});
 	}
 

@@ -31,6 +31,8 @@ export class EditComponent implements OnInit, OnDestroy {
 			ipAddress: [''],
 			sshUsername: [''],
 			sshPassword: [''],
+			model: [''],
+			MAC: [''],
 			id: this.route.snapshot.paramMap.get('id')
 		});
 
@@ -44,6 +46,8 @@ export class EditComponent implements OnInit, OnDestroy {
 				this.deviceForm.controls['ipAddress'].setValue(data.ipAddress);
 				this.deviceForm.controls['sshUsername'].setValue(data.sshUsername);
 				this.deviceForm.controls['sshPassword'].setValue(data.sshPassword);
+				this.deviceForm.controls['model'].setValue(data.model);
+				this.deviceForm.controls['MAC'].setValue(data.MAC);
 			},
 			error: err => {
 				console.error(err);
