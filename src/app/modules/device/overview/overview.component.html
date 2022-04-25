@@ -7,6 +7,9 @@
 		</ng-template>
 	</p-toolbar>
 
+	<p-progressBar *ngIf="isLoading" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+
+
 	<p-table #dt [value]="devices" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
 			 [rowHover]="true" dataKey="id"
 			 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
@@ -35,7 +38,9 @@
 		<ng-template pTemplate="body" let-device>
 			<tr>
 				<td>{{device.name}}</td>
+				<td>{{device.model}}</td>
 				<td>{{device.serialNumber}}</td>
+				<td>{{device.MAC}}</td>
 				<td>{{device.ipAddress}}</td>
 				<td>{{device.sshUsername}}</td>
 				<td><button pButton class="p-button-danger" (click)="openShowSSHPasswordDialog(device)">Show</button></td>

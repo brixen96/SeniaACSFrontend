@@ -5,27 +5,27 @@
 		<div class="col">
 			<p-card header="Create device">
 				<form [formGroup]="deviceForm">
-					<span class="p-float-label my-4">
+					<span class="p-float-label">
 						<input id="float-input" type="text" pInputText formControlName="name">
 						<label for="float-input">Name</label>
 					</span>
 
-					<span class="p-float-label">
+					<span class="p-float-label my-4">
 						<input id="float-input" type="text" pInputText formControlName="model">
 						<label for="float-input">Model</label>
 					</span>
 
-					<span class="p-float-label my-4">
+					<span class="p-float-label">
 						<input id="float-input" type="text" pInputText formControlName="serialNumber">
 						<label for="float-input">Serial Number</label>
 					</span>
 
-					<span class="p-float-label">
+					<span class="p-float-label my-4">
 						<input id="float-input" type="text" pInputText formControlName="MAC">
 						<label for="float-input">MAC Address</label>
 					</span>
 
-					<span class="p-float-label my-4">
+					<span class="p-float-label">
 						<input id="float-input" type="text" pInputText formControlName="ipAddress">
 						<label for="float-input">IP Address</label>
 					</span>
@@ -35,13 +35,13 @@
 						<label for="float-input">SSH Username</label>
 					</span>
 
-					<span class="p-float-label my-4">
+					<span class="p-float-label">
 						<input id="float-input" type="password" pInputText formControlName="sshPassword">
 						<label for="float-input">SSH Password</label>
 					</span>
 				</form>
 
-				<div class="row">
+				<div class="row my-2">
 					<div class="col">
 						<p-button label="Submit" (click)="createDevice()"></p-button>
 					</div>

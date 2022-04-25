@@ -14,13 +14,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 	loginForm!: FormGroup;
 
 	subscription$: any;
+	isLoading: boolean = false;
 
 	constructor(private _formBuilder: FormBuilder, private authService: AuthenticationService, private router: Router) { }
 
 	ngOnInit(): void {
 		this.loginForm = this._formBuilder.group({
-			email: ['ebn@senia.dk', [Validators.required, Validators.email]],
-			password: ['123Qwe123!', Validators.required],
+			email: ['', [Validators.required, Validators.email]],
+			password: ['', [Validators.required, Validators.minLength(8)]],
 		});
 
 		if (localStorage.getItem('jwt') && this.authService.isAuthenticated()) {
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	login() {
+		this.isLoading = true;
 		this.subscription$ = this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).subscribe({
 			next: (data: any) => {
 				localStorage.setItem('jwt', data);

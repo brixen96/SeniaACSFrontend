@@ -13,6 +13,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
 	devices: Array<Object> = [];
 	chosenDevice: any;
+	isLoading: boolean = true;
 
 	showSSHPasswordDialog: any;
 
@@ -27,6 +28,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
 				console.error(err);
 			}
 		})
+
+		this.subscription$.add(() => { this.isLoading = false });
 	}
 
 	ngOnDestroy(): void {

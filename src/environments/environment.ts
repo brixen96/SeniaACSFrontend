@@ -4,8 +4,8 @@
 
 export const environment = {
 	production: false,
-	apiurl: 'https://localhost:7265/'
-	//apiurl: 'https://acsapi.senia.dk/'
+	//apiurl: 'https://localhost:7265/'
+	apiurl: 'https://acsapi.senia.dk/'
 };
 
 /*

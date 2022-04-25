@@ -22,6 +22,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
 	commandsDialog: boolean = false;
 	chosenConfig: any;
+	isLoading: boolean = true;
+	isLoadingExecuteConfig: boolean = false;
 
 	configToExecuteForm!: FormGroup;
 
@@ -61,6 +63,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
 				console.error(err);
 			}
 		})
+
+		this.deviceSubscription$.add(() => { this.isLoading = false });
+
 	}
 
 	ngOnDestroy(): void {
@@ -87,6 +92,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
 	}
 
 	runConfig(config: any) {
+		this.isLoadingExecuteConfig = true;
+
 		let configToExecute = {
 			username: this.configToExecuteForm.controls['username'].value,
 			password: this.configToExecuteForm.controls['password'].value,
@@ -101,20 +108,29 @@ export class OverviewComponent implements OnInit, OnDestroy {
 			accept: () => {
 				this.runConfigSubscription$ = this.configService.runConfig(configToExecute).subscribe({
 					next: (data: any) => {
-						console.log(data)
 						this.messageService.add({ severity: 'success', summary: 'Config Executed', life: 3000 });
-						this.configExecuteOutput = data;
+						this.configExecuteOutput = "No output"
 						this.configOutputDialog = true;
 						this.runConfigDialog = false;
+						this.isLoadingExecuteConfig = false;
 					},
 					error: err => {
-						console.log(err)
+						console.error(err);
+
+						if (err.error.text) {
+							this.configExecuteOutput = err.error.text;
+						} else {
+							this.configExecuteOutput = "No output"
+						}
+
+						this.configOutputDialog = true;
+						this.runConfigDialog = false;
+						this.messageService.add({ severity: 'success', summary: 'Config Executed', life: 3000 });
+						this.isLoadingExecuteConfig = false;
 					}
 				})
 			}
 		});
-
-		//this.configToExecuteForm.reset();
 	}
 
 	selectDevice(device: any) {

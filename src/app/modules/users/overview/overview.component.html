@@ -7,6 +7,8 @@
 		</ng-template>
 	</p-toolbar>
 
+	<p-progressBar *ngIf="isLoading" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+
 	<p-table #dt [value]="users" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
 			 [(selection)]="selectedUsers" [rowHover]="true" dataKey="id"
 			 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">

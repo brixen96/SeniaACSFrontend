@@ -13,6 +13,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
 	subscription$: any;
 	subscriptionDelete$: any;
+	isLoading: boolean = true;
+
 
 	users: Array<Object> = [];
 	selectedUsers: Array<Object> = []
@@ -28,10 +30,14 @@ export class OverviewComponent implements OnInit, OnDestroy {
 				console.error(err);
 			}
 		})
+
+		this.subscription$.add(() => { this.isLoading = false });
 	}
 
 	ngOnDestroy(): void {
-		this.subscription$?.unsubscribe();
+		if (this.subscription$) {
+			this.subscription$?.unsubscribe();
+		}
 		this.subscriptionDelete$?.unsubscribe();
 	}
 

@@ -7,6 +7,8 @@
 		</ng-template>
 	</p-toolbar>
 
+	<p-progressBar *ngIf="isLoading" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+
 	<p-table #dt [value]="configs" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
 			 [(selection)]="selectedConfigs" [rowHover]="true" dataKey="id"
 			 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
@@ -23,6 +25,7 @@
 			</tr>
 		</ng-template>
 		<ng-template pTemplate="body" let-config>
+
 			<tr>
 				<td>{{config.name}}</td>
 				<td><button pButton (click)="openConfigCommandsDialog(config)">View</button></td>
@@ -40,6 +43,8 @@
 		</ng-template>
 	</p-table>
 </div>
+
+
 
 <p-dialog header="Config commands:" [(visible)]="commandsDialog">
 	<p *ngIf="chosenConfig">{{chosenConfig.command}}</p>
@@ -67,6 +72,8 @@
 	</form>
 
 	<button pButton class="p-button-info" (click)="runConfig(chosenConfig)">Submit</button>
+
+	<p-progressBar *ngIf="isLoadingExecuteConfig" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
 
 </p-dialog>
 

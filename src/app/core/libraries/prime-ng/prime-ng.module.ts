@@ -21,7 +21,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
 	declarations: [
@@ -47,7 +47,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 		InputTextareaModule,
 		DialogModule,
 		PasswordModule,
-		AutoCompleteModule
+		AutoCompleteModule,
+		ProgressSpinnerModule
 	],
 	providers: [ConfirmationService, MessageService]
 })
